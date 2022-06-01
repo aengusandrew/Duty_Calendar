@@ -5,6 +5,15 @@ from HouseAdvisor import *
 import pickle
 
 
+# TODO: Remove temp list of HAs
+Aengus = HouseAdvisor("Aengus")
+Nikki = HouseAdvisor("Nikki")
+Gorman = HouseAdvisor("Gorman")
+DeVaun = HouseAdvisor("DeVaun")
+
+thebois = [Aengus, Nikki, DeVaun, Gorman]
+
+
 class Duty_Calendar:
     def __init__(self, CalendarId):
         scopes = ['https://www.googleapis.com/auth/calendar']
@@ -54,7 +63,7 @@ class Duty_Calendar:
         for HA in HA_list:
             self.HAs.add(HA)
 
-    HAs = HouseAdvisors([])
+    HAs = HouseAdvisors(thebois)
     cal_id = ""
     duty_phone = "315-742-2622"
     campo_phone = "315-268-6666"

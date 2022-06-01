@@ -4,7 +4,7 @@ class HouseAdvisors:
     def add(self, newHA):
         self.HAs.append(newHA)
 
-    def remove(self, killHA):
+    def kill(self, killHA):
         self.HAs.remove(killHA)
 
     def names(self):
@@ -23,4 +23,6 @@ class HouseAdvisor:
         return self.HA_name
     def setname(self, newname):
         self.HA_name=name
+    def __str__(self):
+        return self.HA_name
     HA_name=""
