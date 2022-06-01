@@ -35,7 +35,12 @@ class Duty_Calendar:
         curr_time = int(datetime.today().strftime("%H%M"))
         if curr_time >= self.duty_start or curr_time <= self.duty_end:
             try:
-                return "Tonight on duty is " + self.who_on_duty() + ".\n The duty phone number is " + self.duty_phone + "."
+                Duty_HA = self.who_on_duty()
+                if not in_room:
+                    return "Tonight on duty is " + Duty_HA + ".\n The duty phone number is " + self.duty_phone + "."
+                else:
+                    return "Tonight on duty is " + Duty_HA + ", in their room.\n The duty phone number is " + self.duty_phone + "."
+                # TODO: Add functionality to HA class which allows the system to display their room based off their name
             except TypeError:
                 return "Error, no HA listed on duty tonight"
         else:
@@ -56,3 +61,5 @@ class Duty_Calendar:
 
     duty_start = 2000
     duty_end = 800
+
+    in_room = False
