@@ -51,7 +51,7 @@ class HA_GUI:
     def settings(self):
         self.root.attributes('-fullscreen', False)
         sett_window = Toplevel()
-        sett_window.geometry("400x600")
+        sett_window.geometry("300x700")
         sett_window.title("Settings")
 
         main_lbl = Label(sett_window, text="Settings", font=("Times", 30))
@@ -59,6 +59,11 @@ class HA_GUI:
 
         def save():
             self.duty_cal.in_room = in_room_var.get()
+            self.duty_cal.duty_phone = duty_phone_entry.get()
+            self.duty_cal.campo_phone = campo_phone_entry.get()
+            self.duty_cal.duty_start = int(duty_start_entry.get())
+            self.duty_cal.duty_end = int(duty_end_entry.get())
+
 
             sett_window.destroy()
             self.root.attributes('-fullscreen', True)
@@ -79,6 +84,35 @@ class HA_GUI:
         if self.duty_cal.in_room:
             in_room_btn.select()
 
+        # Duty phone number
+        duty_phone_lbl = Label(gen_sett, text="Duty Phone Number")
+        duty_phone_lbl.pack()
+
+        duty_phone_entry = Entry(gen_sett, width=15)
+        duty_phone_entry.insert(0, self.duty_cal.duty_phone)
+        duty_phone_entry.pack()
+
+        # Campo phone number
+        campo_phone_lbl = Label(gen_sett, text="Campus Safety Phone Number")
+        campo_phone_lbl.pack()
+
+        campo_phone_entry = Entry(gen_sett, width=15)
+        campo_phone_entry.insert(0, self.duty_cal.campo_phone)
+        campo_phone_entry.pack()
+
+        # Duty Times
+        duty_time_lbl = Label(gen_sett, text="Duty Times")
+        duty_time_lbl.pack()
+
+        duty_start_entry = Entry(gen_sett, width=4)
+        duty_start_entry.insert(0, self.duty_cal.duty_start)
+        duty_start_entry.pack()
+        duty_end_entry = Entry(gen_sett, width=4)
+        duty_end_entry.insert(0, self.duty_cal.duty_end)
+        duty_end_entry.pack()
+
+
+
         # Add an HA
         add_HA_Frame = LabelFrame(sett_window, text="Add an HA")
         add_HA_Frame.grid(row=2, column=0, padx=10, pady=10)
@@ -97,12 +131,14 @@ class HA_GUI:
             kill_indx = self.duty_cal.HAs.names().index(kill_var.get())
             self.duty_cal.HAs.kill(self.duty_cal.HAs.HAs[kill_indx])
 
-        delete_HA_frame = LabelFrame(sett_window, borderwidth=0)
-        delete_HA_frame.grid(row=3, column=0, columnspan=3, padx=10, sticky="w")
+        delete_HA_frame = LabelFrame(sett_window, text="Delete an HA")
+        delete_HA_frame.grid(row=3, column=0, columnspan=3, padx=10)
         delete_HA_label = Label(delete_HA_frame, text="Select HAs to delete")
         delete_HA_label.pack()
 
         kill_var = StringVar()
+        kill_var.set(self.duty_cal.HAs.HAs[0])
+
         for HA in self.duty_cal.HAs.HAs:
             HA_btn = Radiobutton(delete_HA_frame, text=HA, variable=kill_var, value=HA)
             HA_btn.pack(anchor="w")
@@ -127,4 +163,3 @@ class HA_GUI:
     duty_cal = Duty_Calendar("")
     root = Tk()
 
-duty = HA_GUI()

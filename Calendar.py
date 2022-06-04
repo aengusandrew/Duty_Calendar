@@ -45,7 +45,7 @@ class Duty_Calendar:
         if curr_time >= self.duty_start or curr_time <= self.duty_end:
             try:
                 Duty_HA = self.who_on_duty()
-                if not in_room:
+                if not self.in_room:
                     return "Tonight on duty is " + Duty_HA + ".\n The duty phone number is " + self.duty_phone + "."
                 else:
                     return "Tonight on duty is " + Duty_HA + ", in their room.\n The duty phone number is " + self.duty_phone + "."
