@@ -29,7 +29,7 @@ class HA_GUI:
         cal_id_entry.mainloop()
 
     def run(self):
-        self.root.attributes('-fullscreen', True)
+        # self.root.attributes('-fullscreen', True)
         settings_btn = Button(self.root, text="S", command=self.settings)
         settings_btn.pack(padx=10, pady=10, anchor="ne")
 

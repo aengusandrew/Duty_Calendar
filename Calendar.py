@@ -18,7 +18,7 @@ class Duty_Calendar:
     def __init__(self, CalendarId):
         scopes = ['https://www.googleapis.com/auth/calendar']
         flow = InstalledAppFlow.from_client_secrets_file("client_secret.json", scopes=scopes)
-        credentials = pickle.load(open("token.pkl", "rb"))
+        credentials = flow.run_console()
         self.service = build("calendar", "v3", credentials=credentials)
         self.cal_id = CalendarId
 
@@ -37,8 +37,11 @@ class Duty_Calendar:
     def who_on_duty(self):
         todays_events = self.get_today_events()
         for event in todays_events:
-            if event in self.HAs.names():
-                return event
+            for HA in self.HAs.names:
+                print(HA)
+                if search(HA, event):
+                    return HA
+        return
 
     def duty_label(self):
         curr_time = int(datetime.today().strftime("%H%M"))
@@ -68,7 +71,7 @@ class Duty_Calendar:
     duty_phone = "315-742-2622"
     campo_phone = "315-268-6666"
 
-    duty_start = 2000
-    duty_end = 800
+    duty_start = 0000
+    duty_end = 2359
 
     in_room = False
